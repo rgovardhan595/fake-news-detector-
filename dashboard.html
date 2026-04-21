@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FakeNews Detector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dashboard-page">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dashboard">
+        <div class="container navbar-container">
+            <div class="logo">
+                <span class="logo-icon">🔍</span>
+                <span class="logo-text">FakeNews Detector</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#dashboard" class="active">Dashboard</a></li>
+                <li><a href="#analyze">Analyze</a></li>
+                <li><a href="#history">History</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><button class="btn-logout" onclick="logout()">Logout</button></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+                <h3>John Doe</h3>
+                <p>john@example.com</p>
+            </div>
+            <nav class="sidebar-menu">
+                <a href="#" class="menu-item active">
+                    <span class="menu-icon">📊</span>
+                    Dashboard
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">🔍</span>
+                    Analyze Article
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">📜</span>
+                    Analysis History
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">⭐</span>
+                    Bookmarks
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">⚙️</span>
+                    Settings
+                </a>
+                <a href="#" class="menu-item">
+                    <span class="menu-icon">❓</span>
+                    Help & Support
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h1>Welcome back, John! 👋</h1>
+                <p>Continue detecting and analyzing news articles for authenticity.</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <section class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Total Analyzed</h4>
+                        <span class="stat-icon">📝</span>
+                    </div>
+                    <p class="stat-value">245</p>
+                    <p class="stat-label">articles analyzed</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Fake News Detected</h4>
+                        <span class="stat-icon">❌</span>
+                    </div>
+                    <p class="stat-value">47</p>
+                    <p class="stat-label">potentially fake</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Verified Genuine</h4>
+                        <span class="stat-icon">✓</span>
+                    </div>
+                    <p class="stat-value">198</p>
+                    <p class="stat-label">authentic articles</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h4>Accuracy Score</h4>
+                        <span class="stat-icon">⭐</span>
+                    </div>
+                    <p class="stat-value">97%</p>
+                    <p class="stat-label">detection accuracy</p>
+                </div>
+            </section>
+
+            <!-- Analyze Section -->
+            <section class="analyze-section">
+                <h2>Analyze Article</h2>
+                <div class="analyze-container">
+                    <form class="analyze-form" id="analyzeForm">
+                        <div class="form-group">
+                            <label for="articleContent">Paste Article Content or URL</label>
+                            <textarea id="articleContent" name="articleContent" placeholder="Enter article text or URL..." rows="6" required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="source">News Source</label>
+                                <input type="text" id="source" name="source" placeholder="e.g., BBC News, Reuters">
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" name="category">
+                                    <option value="">Select category</option>
+                                    <option value="politics">Politics</option>
+                                    <option value="health">Health</option>
+                                    <option value="science">Science</option>
+                                    <option value="business">Business</option>
+                                    <option value="sports">Sports</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Analyze Article</button>
+                    </form>
+
+                    <div class="analysis-result" id="analysisResult" style="display: none;">
+                        <div class="result-header">
+                            <h3>Analysis Result</h3>
+                            <span class="result-date" id="resultDate"></span>
+                        </div>
+                        <div class="result-content">
+                            <div class="credibility-meter">
+                                <div class="meter-label">
+                                    <span>Credibility Score</span>
+                                    <span class="meter-value" id="credibilityScore">82%</span>
+                                </div>
+                                <div class="meter-bar">
+                                    <div class="meter-fill" id="meterFill"></div>
+                                </div>
+                            </div>
+
+                            <div class="result-verdict">
+                                <h4 id="verdictTitle">Likely Authentic</h4>
+                                <p id="verdictDescription">This article shows high credibility indicators and appears to be from a reliable source.</p>
+                            </div>
+
+                            <div class="result-factors">
+                                <h4>Analysis Factors</h4>
+                                <div class="factors-list">
+                                    <div class="factor authentic">
+                                        <span class="factor-icon">✓</span>
+                                        <span class="factor-text">Verified sources detected</span>
+                                    </div>
+                                    <div class="factor authentic">
+                                        <span class="factor-icon">✓</span>
+                                        <span class="factor-text">Professional language used</span>
+                                    </div>
+                                    <div class="factor caution">
+                                        <span class="factor-icon">⚠</span>
+                                        <span class="factor-text">Some sensational language detected</span>
+                                    </div>
+                                    <div class="factor authentic">
+                                        <span class="factor-icon">✓</span>
+                                        <span class="factor-text">Citations and references present</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <button class="btn btn-secondary" onclick="saveBookmark()">
+                                    <span>⭐</span> Bookmark
+                                </button>
+                                <button class="btn btn-secondary" onclick="shareResult()">
+                                    <span>📤</span> Share
+                                </button>
+                                <button class="btn btn-secondary" onclick="downloadReport()">
+                                    <span>📥</span> Download Report
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Analysis -->
+            <section class="recent-analysis">
+                <h2>Recent Analysis</h2>
+                <div class="analysis-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Article Title</th>
+                                <th>Source</th>
+                                <th>Category</th>
+                                <th>Credibility</th>
+                                <th>Verdict</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Breaking: Major Scientific Discovery</td>
+                                <td>Science Today</td>
+                                <td>Science</td>
+                                <td>
+                                    <div class="credibility-badge genuine">89%</div>
+                                </td>
+                                <td><span class="verdict-badge authentic">Authentic</span></td>
+                                <td>2 hours ago</td>
+                                <td><button class="btn-small">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Celebrity Announces Shocking News</td>
+                                <td>Gossip Daily</td>
+                                <td>Entertainment</td>
+                                <td>
+                                    <div class="credibility-badge fake">34%</div>
+                                </td>
+                                <td><span class="verdict-badge fake">Fake</span></td>
+                                <td>5 hours ago</td>
+                                <td><button class="btn-small">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>Market Analysis Report</td>
+                                <td>Finance News</td>
+                                <td>Business</td>
+                                <td>
+                                    <div class="credibility-badge genuine">91%</div>
+                                </td>
+                                <td><span class="verdict-badge authentic">Authentic</span></td>
+                                <td>1 day ago</td>
+                                <td><button class="btn-small">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Analyze Form Submission
+        document.getElementById('analyzeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const content = document.getElementById('articleContent').value;
+            if (!content) return;
+            
+            // Generate random credibility score
+            const score = Math.floor(Math.random() * 60) + 40; // 40-100
+            const isAuthentic = score > 60;
+            
+            // Update result display
+            document.getElementById('credibilityScore').textContent = score + '%';
+            document.getElementById('meterFill').style.width = score + '%';
+            document.getElementById('meterFill').className = 'meter-fill ' + (isAuthentic ? 'authentic' : 'fake');
+            
+            document.getElementById('verdictTitle').textContent = isAuthentic ? 'Likely Authentic' : 'Likely Fake';
+            document.getElementById('verdictDescription').textContent = isAuthentic 
+                ? 'This article shows credibility indicators and appears to be from a reliable source.'
+                : 'This article shows signs of being potentially fake or misleading.';
+            
+            const now = new Date();
+            document.getElementById('resultDate').textContent = now.toLocaleString();
+            
+            document.getElementById('analysisResult').style.display = 'block';
+            document.getElementById('analysisResult').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'INDEX.HTML';
+            }
+        }
+
+        function saveBookmark() {
+            alert('Article bookmarked successfully!');
+        }
+
+        function shareResult() {
+            alert('Share functionality coming soon!');
+        }
+
+        function downloadReport() {
+            alert('Report download initiated!');
+        }
+    </script>
+</body>
+</html>
